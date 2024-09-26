@@ -18,12 +18,12 @@ class MNIST(datasets.MNIST):
             return [{'index': index, 'data' : (img.to(torch.float32)[None], int(target))} for index, img, target in zip(_index, _img, _target)]
     
         elif isinstance(_index, int):
-            _img, _target = self.data[_index], self.targets[_index]
+            img, target = self.data[_index], self.targets[_index]
             
             if self.transform is not None:
-                _img = self.transform(_img[None]).squeeze()
+                img = self.transform(img[None]).squeeze()
 
-            return [{'index': _index, 'data' : (_img.to(torch.float32)[None], _target)}]
+            return [{'index': _index, 'data' : (img.to(torch.float32)[None], target)}]
         
         else: raise ValueError("Invalid argumnet")
     
