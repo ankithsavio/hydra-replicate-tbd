@@ -17,6 +17,6 @@ def collate_batch(batch):
              "batch_size": batch_size,
              "inputs": torch.stack(inputs),
              "targets": torch.stack(targets),
-             "sample_indices": sample_indices # not sure why but we will figure it out later
+             "batch_indices": sample_indices # not sure why but we will figure it out later
         }
         return res

@@ -1,3 +1,4 @@
+import torch
 from torch import nn
 from collections import OrderedDict
 
@@ -6,7 +7,7 @@ class LeNET5(nn.Module):
         super().__init__()
         self.convs = nn.Sequential(
             OrderedDict([
-                ('conv1', nn.Conv2d(in_channels=1, out_channels=6, kernel_size=5)),
+                ('conv1', nn.Conv2d(in_channels=1, out_channels=6, kernel_size=5)), # (1, 5, 5)
                 ('relu1', nn.ReLU()),
                 ('maxpool1', nn.MaxPool2d(kernel_size=2, stride=2)),
                 ('conv2', nn.Conv2d(in_channels=6, out_channels=16, kernel_size=5)),
@@ -23,9 +24,8 @@ class LeNET5(nn.Module):
                 ('linear2', nn.Linear(in_features=84, out_features=10)),
             ])
         )
-        self.flatten = nn.Flatten() 
     
     def forward(self, x):
         x = self.convs(x)
-        x = self.fcn(self.flatten(x))
+        x = self.fcn(torch.flatten(x, -3))
         return x
