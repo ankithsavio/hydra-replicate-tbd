@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import torch
 
 def visualize(data, *args, **kwargs):
-    if isinstance(data, dict):
+    if isinstance(data, list):
         assert len(data) == 1, 'visualize a single image only'
         _,(img, label) = list(data[0].values())
         plt.title(label.item())
